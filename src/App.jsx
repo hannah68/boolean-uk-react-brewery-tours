@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ListSection from "./components/ListSection";
 import Header from "./components/Header";
+import Filter from "./components/Filter";
 
 export default function App() {
   const [breweries, setBreweries] = useState([]);
@@ -36,6 +37,9 @@ export default function App() {
     setSelectedState(input);
   };
 
+  const [breweryType, setBreweryType] = useState("")
+  console.log(breweryType);
+
   return (
     <>
       <Header
@@ -43,8 +47,10 @@ export default function App() {
         handleInput={handleSelectStateInput}
       />
       <main>
-        <aside></aside>
-        <ListSection breweries={breweries}/>
+        <aside >
+          <Filter setBreweryType={setBreweryType} />
+        </aside>
+        <ListSection breweries={breweries} breweryType={breweryType} />
       </main>
     </>
   );
