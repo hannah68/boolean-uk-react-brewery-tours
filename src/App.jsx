@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import ListSection from "./components/ListSection";
 import Header from "./components/Header";
 
 export default function App() {
@@ -8,14 +8,32 @@ export default function App() {
 
   console.log("State: ", { breweries, selectedState });
 
+  useEffect(() => {
+    if(!selectedState) return;
+    
+    fetch(`https://api.openbrewerydb.org/breweries?by_state=${selectedState}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+        const filteredArr = data.filter(type => {
+          return type.brewery_type === "micro" || type.brewery_type === "regional" || type.brewery_type === "brewpub"
+        });
+
+        setBreweries(filteredArr);
+        console.log(breweries);
+      })
+  },[selectedState]);
+  
+
   const handleSelectStateForm = (event) => {
     event.preventDefault();
-
     console.log("Inside handleSelectStateForm: ", event.target);
   };
 
   const handleSelectStateInput = (event) => {
-    console.log("Inside handleSelectStateInput: ", event.target.value);
+    const input =  event.target.value
+    setSelectedState(input);
   };
 
   return (
@@ -25,8 +43,7 @@ export default function App() {
         handleInput={handleSelectStateInput}
       />
       <main>
-        {/* Ṛest of components will go here
-         */}
+        <ListSection breweries={breweries}/>
       </main>
     </>
   );
