@@ -43,6 +43,7 @@ export default function App() {
         handleInput={handleSelectStateInput}
       />
       <main>
+        <aside></aside>
         <ListSection breweries={breweries}/>
       </main>
     </>
