@@ -3,10 +3,20 @@ import ListSection from "./components/ListSection";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 
+const initialCityList = [
+  {
+    city: '',
+    checked: false
+  }
+]
+
 export default function App() {
   const [breweries, setBreweries] = useState([]);
   const [selectedState, setSelectedState] = useState("");
+  const [breweryType, setBreweryType] = useState("");
+  const [cityList, setCityList] = useState(initialCityList);
 
+  console.log(cityList);
   console.log("State: ", { breweries, selectedState });
 
   useEffect(() => {
@@ -25,7 +35,26 @@ export default function App() {
         console.log(breweries);
       })
   },[selectedState]);
+
   
+  const handleCityList = (breweries) => {
+    const newCityList=[]
+    const city = {
+      city: '',
+      checked: false
+    }
+
+    breweries.map(brewery => {
+      return (
+        newCityList.push(city.city = brewery.city,
+          city.checked = false
+        )
+      )
+    })
+
+    setCityList(newCityList)
+    
+  }
 
   const handleSelectStateForm = (event) => {
     event.preventDefault();
@@ -37,7 +66,6 @@ export default function App() {
     setSelectedState(input);
   };
 
-  const [breweryType, setBreweryType] = useState("")
   console.log(breweryType);
 
   return (
@@ -48,9 +76,18 @@ export default function App() {
       />
       <main>
         <aside >
-          <Filter setBreweryType={setBreweryType} />
+          <Filter 
+          setBreweryType={setBreweryType} 
+          breweries={breweries}
+          setCityList={setCityList}
+          cityList={cityList} 
+          />
         </aside>
-        <ListSection breweries={breweries} breweryType={breweryType} />
+        <ListSection 
+          breweries={breweries} 
+          breweryType={breweryType}
+          cityList={cityList} 
+        />
       </main>
     </>
   );

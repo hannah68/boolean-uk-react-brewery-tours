@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import StateCities from "./StateCities";
 
 const Filter = (props) => {
+  const { setBreweryType, breweries, setCityList } = props;
   
-  const { setBreweryType } = props;
+  
   
   return (
     <aside class="filters-section">
@@ -27,13 +29,9 @@ const Filter = (props) => {
         <h3>Cities</h3>
         <button class="clear-all-btn">clear all</button>
       </div>
-      <form id="filter-by-city-form">
-        <input type="checkbox" name="chardon" value="chardon" />
-        <label for="chardon">Chardon</label>
-        <input type="checkbox" name="cincinnati" value="cincinnati" />
-        <label for="cincinnati">Cincinnati</label>
-        // More checkboxes
-      </form>
+      <StateCities 
+        breweries={breweries} 
+        setCityList={setCityList}/>
     </aside>
   );
 };
