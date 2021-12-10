@@ -2,8 +2,8 @@ import React from "react";
 
 const ListSection = (props) => {
   const { breweries, breweryType } = props;
-  console.log(breweryType);
-  console.log(breweries);
+//   console.log(breweryType);
+//   console.log(breweries);
 
   return (
     <div>

@@ -17,7 +17,7 @@ export default function App() {
   const [cityList, setCityList] = useState(initialCityList);
 
   console.log(cityList);
-  console.log("State: ", { breweries, selectedState });
+  // console.log("State: ", { breweries, selectedState });
 
   useEffect(() => {
     if(!selectedState) return;
@@ -32,33 +32,34 @@ export default function App() {
         });
 
         setBreweries(filteredArr);
-        console.log(breweries);
+        updateCityList(breweries);
+        // console.log(breweries);
       })
   },[selectedState]);
 
   
-  const handleCityList = (breweries) => {
+  const updateCityList = (breweries) => {
     const newCityList=[]
-    const city = {
-      city: '',
-      checked: false
-    }
+    
 
     breweries.map(brewery => {
+      const city = {
+        cityName: brewery.city,
+        checked: false
+      }
       return (
-        newCityList.push(city.city = brewery.city,
-          city.checked = false
-        )
+        newCityList.push(city)
       )
     })
 
-    setCityList(newCityList)
+    setCityList(newCityList);
+    console.log(newCityList);
     
   }
 
   const handleSelectStateForm = (event) => {
     event.preventDefault();
-    console.log("Inside handleSelectStateForm: ", event.target);
+    // console.log("Inside handleSelectStateForm: ", event.target);
   };
 
   const handleSelectStateInput = (event) => {
@@ -66,7 +67,7 @@ export default function App() {
     setSelectedState(input);
   };
 
-  console.log(breweryType);
+  // console.log(breweryType);
 
   return (
     <>

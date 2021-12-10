@@ -2,12 +2,16 @@ import React from 'react'
 
 const StateCities = (props) => {
     const {breweries, setCityList, cityList} = props;
+    console.log("here", cityList)
 
     const handleToggleCheck = (e) => {
         const checked = e.target.checked;
-        if(checked){
-            setCityList({...cityList, city: e.target.name, chekced: true})
-        }
+        const city = {
+            cityName: e.target.name,
+            checked: checked
+          }
+    
+        setCityList([...cityList, city])
         
     }
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import StateCities from "./StateCities";
 
 const Filter = (props) => {
-  const { setBreweryType, breweries, setCityList } = props;
+  const { setBreweryType, breweries, setCityList, cityList } = props;
   
   
   
@@ -31,7 +31,8 @@ const Filter = (props) => {
       </div>
       <StateCities 
         breweries={breweries} 
-        setCityList={setCityList}/>
+        setCityList={setCityList}
+        cityList={cityList}/>
     </aside>
   );
 };
