@@ -37,7 +37,6 @@ const StateCities = (props) => {
                             name={city} 
                             value={city}
                             onChange={handleChecked}
-                            checked={checkTrueOrFalse(city)}
                         />
                         <label for={city}>
                             {city}
