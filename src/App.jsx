@@ -14,9 +14,24 @@ export default function App() {
   const [breweries, setBreweries] = useState([]);
   const [selectedState, setSelectedState] = useState("");
   const [breweryType, setBreweryType] = useState("");
-  const [cityList, setCityList] = useState(initialCityList);
+  const [cities, setCities] = useState([]);
 
-  console.log(cityList);
+  const handleChecked = event => {
+    let ifChecked = event.target.checked;
+    let city = event.target.value;
+    if (ifChecked) {
+      if (cities.includes(city)) {
+        setCities([...cities, city]);
+      }
+    } else if(!ifChecked) {
+    }
+    console.log(ifChecked);
+  }
+  // console.dir(city);
+  console.log(cities);
+
+
+  // console.log(cityList);
   // console.log("State: ", { breweries, selectedState });
 
   useEffect(() => {
@@ -25,37 +40,18 @@ export default function App() {
     fetch(`https://api.openbrewerydb.org/breweries?by_state=${selectedState}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
 
         const filteredArr = data.filter(type => {
           return type.brewery_type === "micro" || type.brewery_type === "regional" || type.brewery_type === "brewpub"
         });
 
         setBreweries(filteredArr);
-        updateCityList(breweries);
-        // console.log(breweries);
+        // updateCityList(breweries);
+        // console.log("I'm here", breweries);
       })
   },[selectedState]);
 
-  
-  const updateCityList = (breweries) => {
-    const newCityList=[]
-    
-
-    breweries.map(brewery => {
-      const city = {
-        cityName: brewery.city,
-        checked: false
-      }
-      return (
-        newCityList.push(city)
-      )
-    })
-
-    setCityList(newCityList);
-    console.log(newCityList);
-    
-  }
 
   const handleSelectStateForm = (event) => {
     event.preventDefault();
@@ -80,14 +76,13 @@ export default function App() {
           <Filter 
           setBreweryType={setBreweryType} 
           breweries={breweries}
-          setCityList={setCityList}
-          cityList={cityList} 
+          breweryType={breweryType}
+          handleChecked={handleChecked}
           />
         </aside>
         <ListSection 
           breweries={breweries} 
-          breweryType={breweryType}
-          cityList={cityList} 
+          breweryType={breweryType} 
         />
       </main>
     </>

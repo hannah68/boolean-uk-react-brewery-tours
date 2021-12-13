@@ -1,34 +1,52 @@
 import React from 'react'
+import { useEffect, useState } from 'react';
 
 const StateCities = (props) => {
-    const {breweries, setCityList, cityList} = props;
-    console.log("here", cityList)
+    const { breweries, breweryType, handleChecked } = props;
+    // console.log(breweries, breweryType);
+    const [cityList, setCityList] = useState([]);
 
-    const handleToggleCheck = (e) => {
-        const checked = e.target.checked;
-        const city = {
-            cityName: e.target.name,
-            checked: checked
-          }
-    
-        setCityList([...cityList, city])
-        
-    }
+    useEffect(() => {
+        // const showCities = () => {
+            // console.log("inStateCities", breweryType);
+            let cities = [];
+            if (breweryType === "") {
+                cities = breweries.map(el => {
+                    return el.city;
+                })
+            } else {
+                cities = breweries.filter(el => {
+                    if (el.brewery_type === breweryType) {
+                        console.log("STRING", el.city)
+                        return el
+                    }
+                }).map(el => {
+                    return el.city
+                })
+                // console.log("Steve!", cities)
+            }
+            cities = Array.from(new Set(cities));
+            setCityList(cities);
+            
+        // }
+        // showCities();
+        // console.log("HERE", cityList);
+    }, [breweries, breweryType]);
+    // console.log("CITY LIST", cityList);
 
     return (
         <form id="filter-by-city-form">
-            {breweries.map(brewery => {
+            {cityList.map(city => {
                 return(
                     <div>
                         <input 
                             type="checkbox" 
-                            name={brewery.city} 
-                            value={brewery.city}
-                            onChange={handleToggleCheck}
-                            />
-
-                        <label for={brewery.city}>
-                            {brewery.city}
+                            name={city} 
+                            value={city}
+                            onChange={handleChecked}
+                        />
+                        <label for={city}>
+                            {city}
                         </label>
                     </div>
                 )
