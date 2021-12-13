@@ -19,13 +19,12 @@ export default function App() {
   const handleChecked = event => {
     let ifChecked = event.target.checked;
     let city = event.target.value;
-    if (ifChecked) {
       if (cities.includes(city)) {
-        setCities([...cities, city]);
-      }
-    } else if(!ifChecked) {
-    }
-    console.log(ifChecked);
+        setCities(cities.filter(el => el!== city));
+      } else { 
+        setCities([...cities, city]) 
+      }  
+    
   }
   // console.dir(city);
   console.log(cities);
@@ -62,7 +61,7 @@ export default function App() {
     const input =  event.target.value
     setSelectedState(input);
   };
-
+  console.log("checkout", selectedState)
   // console.log(breweryType);
 
   return (
@@ -83,6 +82,7 @@ export default function App() {
         <ListSection 
           breweries={breweries} 
           breweryType={breweryType} 
+          cities={cities}
         />
       </main>
     </>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const ListSection = (props) => {
-  const { breweries, breweryType } = props;
+  const { breweries, breweryType, cities} = props;
 //   console.log(breweryType);
 //   console.log(breweries);
 
@@ -18,10 +18,13 @@ const ListSection = (props) => {
         </header>
         <ul className="breweries-list"> 
             {breweries.filter((brewery) => {
-                if (!breweryType){
+                if (!breweryType && cities.length == 0) {
                     return breweries
-                }
-                else if(brewery.brewery_type === breweryType){
+                } else if (brewery.brewery_type === breweryType && cities.length == 0) {
+                    return brewery
+                } else if (brewery.brewery_type === breweryType && cities.includes(brewery.city)){
+                    return brewery
+                } else if (cities.includes(brewery.city)) {
                     return brewery
                 }
             }).map((brewery) => {
