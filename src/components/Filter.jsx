@@ -1,11 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import StateCities from "./StateCities";
 
 const Filter = (props) => {
   const { setBreweryType, breweries, setCityList, cityList, breweryType, handleChecked } = props;
-  
-  
   
   return (
     <aside class="filters-section">

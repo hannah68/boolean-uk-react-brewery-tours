@@ -2,14 +2,11 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 
 const StateCities = (props) => {
-    const { breweries, breweryType, handleChecked } = props;
-    // console.log(breweries, breweryType);
+    const { breweries, breweryType, handleChecked, handleClear } = props;
     const [cityList, setCityList] = useState([]);
 
     useEffect(() => {
-        // const showCities = () => {
-            // console.log("inStateCities", breweryType);
-            let cities = [];
+        let cities = [];
             if (breweryType === "") {
                 cities = breweries.map(el => {
                     return el.city;
@@ -23,16 +20,12 @@ const StateCities = (props) => {
                 }).map(el => {
                     return el.city
                 })
-                // console.log("Steve!", cities)
             }
             cities = Array.from(new Set(cities));
             setCityList(cities);
-            
-        // }
-        // showCities();
-        // console.log("HERE", cityList);
     }, [breweries, breweryType]);
-    // console.log("CITY LIST", cityList);
+
+    
 
     return (
         <form id="filter-by-city-form">
@@ -44,6 +37,7 @@ const StateCities = (props) => {
                             name={city} 
                             value={city}
                             onChange={handleChecked}
+                            checked={checkTrueOrFalse(city)}
                         />
                         <label for={city}>
                             {city}

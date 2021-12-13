@@ -1,8 +1,6 @@
 export default function Header(props) {
-  // console.log("Inside Header: ", props);
-
   const { handleSubmit, handleInput } = props;
-
+  
   return (
     <header className="main-header">
       <section className="select-state-section">

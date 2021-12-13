@@ -17,52 +17,36 @@ export default function App() {
   const [cities, setCities] = useState([]);
 
   const handleChecked = event => {
-    let ifChecked = event.target.checked;
     let city = event.target.value;
       if (cities.includes(city)) {
         setCities(cities.filter(el => el!== city));
       } else { 
         setCities([...cities, city]) 
-      }  
-    
+      }
   }
-  // console.dir(city);
-  console.log(cities);
-
-
-  // console.log(cityList);
-  // console.log("State: ", { breweries, selectedState });
-
+  
   useEffect(() => {
     if(!selectedState) return;
     
     fetch(`https://api.openbrewerydb.org/breweries?by_state=${selectedState}`)
       .then(res => res.json())
       .then(data => {
-        // console.log(data);
-
         const filteredArr = data.filter(type => {
           return type.brewery_type === "micro" || type.brewery_type === "regional" || type.brewery_type === "brewpub"
         });
-
         setBreweries(filteredArr);
-        // updateCityList(breweries);
-        // console.log("I'm here", breweries);
       })
   },[selectedState]);
 
 
   const handleSelectStateForm = (event) => {
     event.preventDefault();
-    // console.log("Inside handleSelectStateForm: ", event.target);
   };
 
   const handleSelectStateInput = (event) => {
     const input =  event.target.value
     setSelectedState(input);
   };
-  console.log("checkout", selectedState)
-  // console.log(breweryType);
 
   return (
     <>
@@ -83,6 +67,7 @@ export default function App() {
           breweries={breweries} 
           breweryType={breweryType} 
           cities={cities}
+          selectedState={selectedState}
         />
       </main>
     </>
